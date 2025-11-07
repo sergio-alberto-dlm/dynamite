@@ -109,6 +109,10 @@
   <script defer src="static/js/bulma-slider.min.js"></script>
   <script defer src="static/js/index.js"></script>
   
+  <!-- MathJax for rendering equations -->
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  
   <!-- Structured Data for Academic Papers -->
   <script type="application/ld+json">
   {
@@ -187,20 +191,20 @@
   </button>
 
   <!-- More Works Dropdown -->
-  <div class="more-works-container">
-    <button class="more-works-btn" onclick="toggleMoreWorks()" title="View More Works from Our Lab">
-      <i class="fas fa-flask"></i>
-      More Works
-      <i class="fas fa-chevron-down dropdown-arrow"></i>
-    </button>
-    <div class="more-works-dropdown" id="moreWorksDropdown">
-      <div class="dropdown-header">
-        <h4>More Works from Our Lab</h4>
-        <button class="close-btn" onclick="toggleMoreWorks()">
-          <i class="fas fa-times"></i>
-        </button>
-      </div>
-      <div class="works-list">
+  <!-- <div class="more-works-container"> -->
+    <!-- <button class="more-works-btn" onclick="toggleMoreWorks()" title="View More Works from Our Lab"> -->
+      <!-- <i class="fas fa-flask"></i> -->
+      <!-- More Works -->
+      <!-- <i class="fas fa-chevron-down dropdown-arrow"></i> -->
+    <!-- </button> -->
+    <!-- <div class="more-works-dropdown" id="moreWorksDropdown"> -->
+      <!-- <div class="dropdown-header"> -->
+        <!-- <h4>More Works from Our Lab</h4> -->
+        <!-- <button class="close-btn" onclick="toggleMoreWorks()"> -->
+          <!-- <i class="fas fa-times"></i> -->
+        <!-- </button> -->
+      <!-- </div> -->
+      <!-- <div class="works-list"> -->
         <!-- TODO: Replace with your lab's related works -->
         <!-- <a href="https://arxiv.org/abs/PAPER_ID_1" class="work-item" target="_blank"> -->
           <!-- <div class="work-info"> -->
@@ -230,9 +234,9 @@
           <!-- </div> -->
           <!-- <i class="fas fa-external-link-alt"></i> -->
         <!-- </a> -->
-      </div>
-    </div>
-  </div>
+      <!-- </div> -->
+    <!-- </div> -->
+  <!-- </div> -->
 
   <main id="main-content">
   <section class="hero">
@@ -356,7 +360,7 @@
   <div class="hero-body">
     <div class="container">
       <!-- Paper video. -->
-      <h2 class="title is-3">Video Presentation</h2>
+      <h2 class="title is-3">Demo Video</h2>
       <div class="columns is-centered has-text-centered">
         <div class="column is-four-fifths">
           
@@ -370,6 +374,35 @@
   </div>
 </section>
 <!-- End youtube video -->
+
+
+<!-- Dynamics Masking Module -->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Dynamics Masking Module</h2>
+        <div class="content has-text-justified">
+          <p>
+            To handle dynamic scenes, we introduce a probabilistic Gaussian Process module. For each new keyframe, we compute a robust residual between the original and rendered images:
+          </p>
+          <p style="text-align: center;">
+            \begin{equation}
+            r = (1 - C)(1 - L)(1 - S),
+            \end{equation}
+          </p>
+          <p>
+            where \(C, L, S\) denote the contrast, luminance, and structure components of the SSIM loss. This residual captures subtle variations that reveal dynamic regions.
+          </p>
+          <p>
+            We assume the residual is parameterized by semantic features \(z \in \mathbb{R}^d\) extracted using DINOv2 embeddings. The dataset \(\mathcal{D} = \{(z_i, r(z_i))\}\) is used to train a Gaussian Process with a Matérn + RBF kernel. A variational approach minimizes the evidence lower bound (ELBO) via stochastic gradient descent. To keep the model compact, we perform active point selection, retaining only those with the highest uncertainty within a sliding window. The final binary mask is obtained by thresholding the exponential moving average of the predicted mean.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End Dynamics Masking Module -->
 
 
 <!-- Pipeline Image -->
@@ -394,13 +427,13 @@
 <section class="hero is-small">
   <div class="hero-body">
     <div class="container">
-      <h2 class="title is-3">Another Carousel</h2>
+      <h2 class="title is-3">more videos</h2>
       <div id="results-carousel" class="carousel results-carousel">
         <div class="item item-video1">
           <!-- TODO: Add poster image for better preview -->
           <video poster="" id="video1" controls muted loop height="100%" preload="metadata">
             <!-- Your video file here -->
-            <source src="static/videos/carousel1.mp4" type="video/mp4">
+            <source src="static/videos/demo_dynamite_balloon2.mp4" type="video/mp4">
           </video>
         </div>
         <div class="item item-video2">
